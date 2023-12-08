@@ -1,0 +1,49 @@
+[
+    {
+        "Nazwa":"",
+        "Rejestr":"",
+        "KRS":"",
+        "NIP":"",
+        "REGON":"",
+        "Forma":"",
+        "Postepowanie":"",
+        "Sygnatura":"",
+        "Rejestracja":"",
+        "Zakonczenie":"",
+        "Status":""
+    },
+    {
+        "Nazwa":"UIPATH POLAND SP\u00d3\u0141KA Z OGRANICZON\u0104 ODPOWIEDZIALNO\u015aCI\u0104",
+        "Rejestr":"Rejestr Przedsi\u0119biorc\u00f3w",
+        "KRS":"0000951450",
+        "NIP":"5252895298",
+        "REGON":"52121249200000",
+        "Forma":"SP\u00d3\u0141KA Z OGRANICZON\u0104 ODPOWIEDZIALNO\u015aCI\u0104",
+        "Postepowanie":"Brak postepowan",
+        "Sygnatura":"Brak postepowan",
+        "Rejestracja":"Brak postepowan",
+        "Zakonczenie":"Brak postepowan",
+        "Status":"Brak postepowan"
+    }
+]
+{
+    "operationsTypeId": "db2d9634-debb-4004-b92f-96823f42ac7e",
+    "toLocationId": "549074e4-94ef-44da-8c5b-f745bc4a5ba1",
+    "toAssetsStatusId": "ef1f9208-a0f8-431c-b7e0-f20998657745",
+    "userId": "a2da712b-7a5a-46b6-aa61-411bf828dfe7",
+    "branchId": "25bc7d6d-7f85-4059-a827-a3980cc1350c",
+    "organizationId": "29762104-2b67-4009-99f3-5bf1e15eb25e",
+    "assetList": [
+        {
+            "assetId": "960862c9-fbf6-4b95-aa88-019184ec0b07",
+            "quantity": 1,
+            "assetTypeId": ""
+        },
+        {
+            "assetId": "e990adff-9462-4aea-a522-c91f9b8b0a8e",
+            "quantity": 1,
+            "assetTypeId": ""
+        }
+    ],
+    "fromLocationId": ""
+}
