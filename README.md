@@ -24,15 +24,15 @@ Robot consists of:
 	- Google Chrome
 
 ## TO DO
-1. Potential architecture could be three processes:
+1. Potential architecture could consists of three processes:
 	- dispatcher
-	- handler (splits items in queue)
+	- krs handler (splits items in queue)
 	- report creator (get items and closed them)
 2. Clean code:
 	- it's my second robot in uipath and there are some paths that could be better written:
 		- split variables scope
-		- create more blocks for better visibility
-		- close items in queue with BRE when it's not found
 		- better handling the applications (opening and closing)
 			- excel,
+			- chrome
      - prepare testcases
+     - report is generated in pdf instead of html
