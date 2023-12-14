@@ -105,6 +105,8 @@
       <AssemblyReference>System.Security.Permissions</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <sap:WorkflowViewStateService.ViewState>
@@ -113,7 +115,7 @@
       <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="KRS Dispatcher" sap:VirtualizedContainerService.HintSize="512,441.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="strInputPath" />
       <Variable x:TypeArguments="x:String" Name="strInputWorksheetName" />
@@ -127,87 +129,161 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputWorksheetName" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_3">
-      <ui:GetRobotAsset.Value>
-        <OutArgument x:TypeArguments="x:String">[strInputWorksheetName]</OutArgument>
-      </ui:GetRobotAsset.Value>
-    </ui:GetRobotAsset>
-    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputWorkbookName" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_4">
-      <ui:GetRobotAsset.Value>
-        <OutArgument x:TypeArguments="x:String">[strInputWorkbookName]</OutArgument>
-      </ui:GetRobotAsset.Value>
-    </ui:GetRobotAsset>
-    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputTempWorkbookName" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_5">
-      <ui:GetRobotAsset.Value>
-        <OutArgument x:TypeArguments="x:String">[strInputTempWorkbookName]</OutArgument>
-      </ui:GetRobotAsset.Value>
-    </ui:GetRobotAsset>
-    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputDirectory" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_7">
-      <ui:GetRobotAsset.Value>
-        <OutArgument x:TypeArguments="x:String">[strInputDirectory]</OutArgument>
-      </ui:GetRobotAsset.Value>
-    </ui:GetRobotAsset>
-    <ui:CopyFile ContinueOnError="{x:Null}" Destination="[strInputDirectory+strInputTempWorkbookName]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[strInputDirectory+strInputWorkbookName]" />
-    <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="433.6,81.6" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_3" ResizeWindow="None" WorkbookPath="[strInputDirectory+strInputTempWorkbookName]">
-      <ueab:ExcelApplicationCard.Body>
-        <ActivityAction x:TypeArguments="ue:IWorkbookQuickHandle">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="ue:IWorkbookQuickHandle" Name="Excel" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_5">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ueab:DeleteRowsX DeleteRowsOption="Specific" DisplayName="Delete Rows" HasHeaders="True" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="DeleteRowsX_1" Range="[Excel.Sheet(&quot;Dane&quot;)]" RowPositions="1" />
-            <ueab:SaveExcelFileX DisplayName="Save Excel File" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="SaveExcelFileX_1" Workbook="[Excel]" />
-          </Sequence>
-        </ActivityAction>
-      </ueab:ExcelApplicationCard.Body>
-    </ueab:ExcelApplicationCard>
-    <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dtInputData]" DisplayName="Read Range Workbook" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="ReadRange_3" SheetName="[strInputWorksheetName]" WorkbookPath="[strInputDirectory+strInputTempWorkbookName]" />
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtInputData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="433.6,268" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
-      <ui:ForEachRow.Body>
-        <ActivityAction x:TypeArguments="sd:DataRow">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="377.6,284" sap2010:WorkflowViewState.IdRef="Sequence_3">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="334.4,194.4" sap2010:WorkflowViewState.IdRef="AddQueueItem_2" Priority="Normal" QueueType="BetacomDemoKRS">
-              <ui:AddQueueItem.ItemInformation>
-                <InArgument x:TypeArguments="x:String" x:Key="Key">[CurrentRow.Item("Numer KRS").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="KRS">[CurrentRow.Item("Numer KRS").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="Nazwa">[CurrentRow.Item("Nazwa").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="NIP">[CurrentRow.Item("NIP").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="REGON">[CurrentRow.Item("REGON").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="Forma">[CurrentRow.Item("Forma prawna").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="DataWpis">[CurrentRow.Item("Data wpisu").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="Postępowanie">[CurrentRow.Item("Rodzaj postępowania").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="Sygnatura">[CurrentRow.Item("Sygnatura").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="DataRejestracja">[CurrentRow.Item("Data rejestracji").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="DataZakończenia">[CurrentRow.Item("Data zakończenia").ToString]</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="Status">[CurrentRow.Item("Status").ToString]</InArgument>
-              </ui:AddQueueItem.ItemInformation>
+    <Sequence DisplayName="Clean Environment" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_14">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:KillProcess AppliesTo="{x:Null}" ContinueOnError="{x:Null}" Process="{x:Null}" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="EXCEL" />
+    </Sequence>
+    <Sequence DisplayName="Init" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_9">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence DisplayName="Initialize Assets" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_7">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputWorksheetName" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_12">
+          <ui:GetRobotAsset.Value>
+            <OutArgument x:TypeArguments="x:String">[strInputWorksheetName]</OutArgument>
+          </ui:GetRobotAsset.Value>
+        </ui:GetRobotAsset>
+        <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputWorkbookName" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_13">
+          <ui:GetRobotAsset.Value>
+            <OutArgument x:TypeArguments="x:String">[strInputWorkbookName]</OutArgument>
+          </ui:GetRobotAsset.Value>
+        </ui:GetRobotAsset>
+        <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputTempWorkbookName" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_14">
+          <ui:GetRobotAsset.Value>
+            <OutArgument x:TypeArguments="x:String">[strInputTempWorkbookName]</OutArgument>
+          </ui:GetRobotAsset.Value>
+        </ui:GetRobotAsset>
+        <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="InputDirectory" CacheStrategy="None" DisplayName="Get Asset" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="GetRobotAsset_15">
+          <ui:GetRobotAsset.Value>
+            <OutArgument x:TypeArguments="x:String">[strInputDirectory]</OutArgument>
+          </ui:GetRobotAsset.Value>
+        </ui:GetRobotAsset>
+      </Sequence>
+      <Sequence DisplayName="Initialize Files" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:CopyFile ContinueOnError="{x:Null}" Destination="[strInputDirectory+strInputTempWorkbookName]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="CopyFile_2" Overwrite="True" Path="[strInputDirectory+strInputWorkbookName]" />
+      </Sequence>
+    </Sequence>
+    <Sequence DisplayName="Bulk Queue" sap:VirtualizedContainerService.HintSize="449.6,83.2" sap2010:WorkflowViewState.IdRef="Sequence_10">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Handle Input File" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
+        <ueab:ExcelProcessScopeX.Body>
+          <ActivityAction x:TypeArguments="ui:IExcelProcess">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ui:IExcelProcess" Name="ExcelProcessScopeTag" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="545.6,639.2" sap2010:WorkflowViewState.IdRef="Sequence_12">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-            </ui:AddQueueItem>
-          </Sequence>
-        </ActivityAction>
-      </ui:ForEachRow.Body>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsPinned">True</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-    </ui:ForEachRow>
+              <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="483.2,527.2" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_4" ResizeWindow="None" WorkbookPath="[strInputDirectory+strInputTempWorkbookName]">
+                <ueab:ExcelApplicationCard.Body>
+                  <ActivityAction x:TypeArguments="ue:IWorkbookQuickHandle">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="ue:IWorkbookQuickHandle" Name="Excel" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="449.6,257.6" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ueab:DeleteRowsX DeleteRowsOption="Specific" DisplayName="Delete Rows" HasHeaders="True" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="DeleteRowsX_2" Range="[Excel.Sheet(&quot;Dane&quot;)]" RowPositions="1" />
+                      <ueab:SaveExcelFileX DisplayName="Save Excel File" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="SaveExcelFileX_2" Workbook="[Excel]" />
+                    </Sequence>
+                  </ActivityAction>
+                </ueab:ExcelApplicationCard.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ueab:ExcelApplicationCard>
+            </Sequence>
+          </ActivityAction>
+        </ueab:ExcelProcessScopeX.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ueab:ExcelProcessScopeX>
+      <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[dtInputData]" DisplayName="Read Input Data" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="ReadRange_4" SheetName="[strInputWorksheetName]" WorkbookPath="[strInputDirectory+strInputTempWorkbookName]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ReadRange>
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtInputData]" DisplayName="Bulk Queue" sap:VirtualizedContainerService.HintSize="387.2,52.8" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+        <ui:ForEachRow.Body>
+          <ActivityAction x:TypeArguments="sd:DataRow">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_13">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" FolderPath="arcadio.student@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="334.4,194.4" sap2010:WorkflowViewState.IdRef="AddQueueItem_3" Priority="Normal" QueueType="BetacomDemoKRS">
+                <ui:AddQueueItem.ItemInformation>
+                  <InArgument x:TypeArguments="x:String" x:Key="Key">[CurrentRow.Item("Numer KRS").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="KRS">[CurrentRow.Item("Numer KRS").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Nazwa">[CurrentRow.Item("Nazwa").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="NIP">[CurrentRow.Item("NIP").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="REGON">[CurrentRow.Item("REGON").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Forma">[CurrentRow.Item("Forma prawna").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="DataWpis">[CurrentRow.Item("Data wpisu").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Postępowanie">[CurrentRow.Item("Rodzaj postępowania").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Sygnatura">[CurrentRow.Item("Sygnatura").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="DataRejestracja">[CurrentRow.Item("Data rejestracji").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="DataZakończenia">[CurrentRow.Item("Data zakończenia").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="Status">[CurrentRow.Item("Status").ToString]</InArgument>
+                </ui:AddQueueItem.ItemInformation>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:AddQueueItem>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEachRow.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEachRow>
+    </Sequence>
   </Sequence>
 </Activity>
